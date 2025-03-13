@@ -1,7 +1,9 @@
 using RentCar.Application.Services.CarServices;
+using RentCar.Application.Services.RentedCarServices;
 using RentCar.Application.Services.UserServices;
 using RentCar.Persistence.Context;
 using RentCar.Persistence.Repositories.CarRepositories;
+using RentCar.Persistence.Repositories.RentedCarRepositories;
 using RentCar.Persistence.Repositories.UserRepositories;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +15,8 @@ builder.Services.AddScoped<ICarRepository,CarRepository>();
 builder.Services.AddScoped<ICarServices,CarServices>();
 builder.Services.AddScoped<IUserRepository,UserRepository>();
 builder.Services.AddScoped<IUserServices,UserServices>();
+builder.Services.AddScoped<IRentedCarRepository, RentedCarRepository>();
+builder.Services.AddScoped<IRentedCarServices, RentedCarServices>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
