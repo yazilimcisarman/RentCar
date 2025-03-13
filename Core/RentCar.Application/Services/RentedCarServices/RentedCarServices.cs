@@ -73,15 +73,15 @@ namespace RentCar.Application.Services.RentedCarServices
                 {
                     Id = rentedCar.Id,
                     UserId = rentedCar.UserId,
-                    User = user,
                     CarId = rentedCar.CarId,
-                    Car =car,
                     StartDate = rentedCar.StartDate,
                     EndDate = rentedCar.EndDate,
                     TotalPrice = rentedCar.TotalPrice,
                     DamagePrice = rentedCar.DamagePrice,
                     IsCompleted = rentedCar.IsCompleted,
                 };
+                //newrentedcar.User = user;
+                newrentedcar.Car = car;
                 result.Add(newrentedcar);
             }
 
