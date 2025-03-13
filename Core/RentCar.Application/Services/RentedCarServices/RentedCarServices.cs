@@ -1,6 +1,8 @@
 ﻿using RentCar.Application.Dtos.RentedCarDtos;
 using RentCar.Domain.Entities;
+using RentCar.Persistence.Repositories.CarRepositories;
 using RentCar.Persistence.Repositories.RentedCarRepositories;
+using RentCar.Persistence.Repositories.UserRepositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,10 +14,14 @@ namespace RentCar.Application.Services.RentedCarServices
     public class RentedCarServices : IRentedCarServices
     {
         private readonly IRentedCarRepository _rentedCarRepository;
+        private readonly IUserRepository _userRepository;
+        private readonly ICarRepository _carRepository;
 
-        public RentedCarServices(IRentedCarRepository rentedCarRepository)
+        public RentedCarServices(IRentedCarRepository rentedCarRepository, IUserRepository userRepository, ICarRepository carRepository)
         {
             _rentedCarRepository = rentedCarRepository;
+            _userRepository = userRepository;
+            _carRepository = carRepository;
         }
 
         public async Task CreateRentedCar(CreateRentedCarDto dto)
@@ -42,19 +48,44 @@ namespace RentCar.Application.Services.RentedCarServices
         public async Task<List<ResultRentedCarDto>> GetAllRentedCars()
         {
             var value = await _rentedCarRepository.GetAllRentedCarsAsync();
+            var users = await _userRepository.GetAllUsersAsync();
+            var cars = await _carRepository.GetAllCarsAsync();
+            var result = new List<ResultRentedCarDto>();
+            //var result = value.Select(x => new ResultRentedCarDto
+            //{
+            //    Id = x.Id,
+            //    UserId = x.UserId,
+            //    CarId = x.CarId,
+            //    Car = x.Car,
+            //    StartDate = x.StartDate,
+            //    EndDate = x.EndDate,
+            //    TotalPrice = x.TotalPrice,
+            //    DamagePrice = x.DamagePrice,
+            //    IsCompleted = x.IsCompleted,
 
-            var result = value.Select(x => new ResultRentedCarDto
+            //}).ToList();
+
+            foreach (var rentedCar in value) 
             {
-                Id = x.Id,
-                UserId = x.UserId,
-                CarId = x.CarId,
-                StartDate = x.StartDate,
-                EndDate = x.EndDate,
-                TotalPrice = x.TotalPrice,
-                DamagePrice = x.DamagePrice,
-                IsCompleted = x.IsCompleted,
+                var user = await _userRepository.GetByIdUserAsync(rentedCar.UserId);
+                var car = await _carRepository.GetByIdCarAsync(rentedCar.CarId);
+                var newrentedcar = new ResultRentedCarDto
+                {
+                    Id = rentedCar.Id,
+                    UserId = rentedCar.UserId,
+                    User = user,
+                    CarId = rentedCar.CarId,
+                    Car =car,
+                    StartDate = rentedCar.StartDate,
+                    EndDate = rentedCar.EndDate,
+                    TotalPrice = rentedCar.TotalPrice,
+                    DamagePrice = rentedCar.DamagePrice,
+                    IsCompleted = rentedCar.IsCompleted,
+                };
+                result.Add(newrentedcar);
+            }
 
-            }).ToList();
+
             return result;
         }
 
