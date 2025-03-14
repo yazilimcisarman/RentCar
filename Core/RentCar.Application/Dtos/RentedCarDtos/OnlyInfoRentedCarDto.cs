@@ -8,11 +8,9 @@ using System.Threading.Tasks;
 
 namespace RentCar.Application.Dtos.RentedCarDtos
 {
-    public class GetByIdRentedCarDto
+    public class OnlyInfoRentedCarDto
     {
         public int Id { get; set; }
-        public int UserId { get; set; }
-        public OnlyInfoUserDto User { get; set; }
         public int CarId { get; set; }
         public Car Car { get; set; }
         public DateTime StartDate { get; set; }

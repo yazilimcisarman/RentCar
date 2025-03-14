@@ -1,4 +1,5 @@
-﻿using RentCar.Domain.Entities;
+﻿using RentCar.Application.Dtos.UserDtos;
+using RentCar.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace RentCar.Application.Dtos.RentedCarDtos
     {
         public int Id { get; set; }
         public int UserId { get; set; }
-        public User User { get; set; }
+        public OnlyInfoUserDto User { get; set; } //bnuraya farkli turde bir use getirmem lazim
         public int CarId { get; set; }
         public Car Car { get; set; }
         public DateTime StartDate { get; set; }

@@ -21,6 +21,13 @@ namespace RentCar.Api.Controllers
             var result = await _userServices.GetAllUsers();
             return Ok(result);
         }
+        //bu endpoint calismiyor chtgpt yapamadi.
+        [HttpGet("getAllUsersChtGpt")]
+        public async Task<IActionResult> GetAllUsersChtGpt()
+        {
+            var result = await _userServices.GetAllUsersCreaByChatGpt();
+            return Ok(result);
+        }
         [HttpGet("getByIdUser")]
         public async Task<IActionResult> GetByIdUser(int id)
         {

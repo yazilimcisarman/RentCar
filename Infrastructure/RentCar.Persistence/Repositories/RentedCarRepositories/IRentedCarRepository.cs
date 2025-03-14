@@ -14,5 +14,6 @@ namespace RentCar.Persistence.Repositories.RentedCarRepositories
         Task CreateRentedCarAsync(RentedCar model);
         Task UpdateRentedCarAsync(RentedCar model);
         Task DeleteRentedCarAsync(RentedCar model);
+        Task<List<RentedCar>> GetRentedCarsByUserId(int userId);
     }
 }
