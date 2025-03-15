@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RentCar.Application.Dtos.RentedCarDtos;
 using RentCar.Application.Services.RentedCarServices;
@@ -27,6 +28,7 @@ namespace RentCar.Api.Controllers
             var result = await _services.GetByIdRentedCar(id);
             return Ok(result);
         }
+        [Authorize(Roles ="admin,user")] //iki rol de bu islemi yapabilir
         [HttpPost("createRentedCar")]
         public async Task<IActionResult> CreateRentedCar(CreateRentedCarDto dto)
         {
