@@ -18,6 +18,12 @@ namespace RentCar.Persistence.Repositories.UserRepositories
             _context = context;
         }
 
+        public async Task<User> CheckUser(string email, string password)
+        {
+            var user = await _context.Users.Where(x => x.Email == email && x.Password == password).FirstOrDefaultAsync();
+            return user;
+        }
+
         public async Task CreateUserAsync(User model)
         {
             await _context.Users.AddAsync(model);

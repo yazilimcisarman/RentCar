@@ -14,5 +14,6 @@ namespace RentCar.Persistence.Repositories.UserRepositories
         Task CreateUserAsync(User model);
         Task UpdateUserAsync(User model);
         Task DeleteUserAsync(User model);
+        Task<User> CheckUser(string email,string password);
     }
 }
